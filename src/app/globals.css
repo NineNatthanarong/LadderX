@@ -1,13 +1,47 @@
 @import "tailwindcss";
 
 :root {
+  /* Semantic Colors (Light) */
   --background: #ffffff;
   --foreground: #111827; /* Gray 900 */
+  --muted: #f3f4f6; /* Gray 100 */
+  --muted-foreground: #6b7280; /* Gray 500 */
+  --border: #e5e7eb; /* Gray 200 */
+  --accent: #f9fafb; /* Gray 50 */
+  --accent-foreground: #111827; /* Gray 900 */
+
+  /* Typography Scale (Fluid) */
+  --font-h1: clamp(2rem, 5vw, 2.5rem);
+  --font-h2: clamp(1.5rem, 4vw, 2rem);
+  --font-h3: clamp(1.25rem, 3vw, 1.5rem);
+  --line-height-prose: 1.75;
+}
+
+/* Dark Mode Variables */
+.dark {
+  --background: #030712; /* Gray 950 */
+  --foreground: #f9fafb; /* Gray 50 */
+  --muted: #1f2937; /* Gray 800 */
+  --muted-foreground: #9ca3af; /* Gray 400 */
+  --border: #1f2937; /* Gray 800 */
+  --accent: #111827; /* Gray 900 */
+  --accent-foreground: #f9fafb; /* Gray 50 */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --font-h1: var(--font-h1);
+  --font-h2: var(--font-h2);
+  --font-h3: var(--font-h3);
+  --line-height-prose: var(--line-height-prose);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -16,15 +50,26 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans), system-ui, sans-serif;
+    line-height: var(--line-height-prose);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.025em;
+    font-weight: 600;
+  }
+
+  h1 { font-size: var(--font-h1); line-height: 1.2; }
+  h2 { font-size: var(--font-h2); line-height: 1.3; }
+  h3 { font-size: var(--font-h3); line-height: 1.4; }
 
   /* Selection color for better UX */
   ::selection {
