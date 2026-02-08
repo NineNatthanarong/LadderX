@@ -52,12 +52,12 @@ export function SearchBar({ onSearch, isSearching }: SearchBarProps) {
   return (
     <div className="relative w-full max-w-2xl mx-auto group">
       <div className="relative">
-        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted h-5 w-5 group-focus-within:text-accent transition-none" />
+        <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-muted h-4 w-4 sm:h-5 sm:w-5 group-focus-within:text-accent transition-none" />
         <input
           ref={inputRef}
           type="text"
           aria-label="Search documentation"
-          className="w-full pl-12 pr-14 py-4 bg-surface border border-border focus:outline-none focus:border-accent text-foreground placeholder-muted text-base font-medium tracking-wide"
+          className="w-full pl-10 sm:pl-12 pr-4 sm:pr-14 py-3 sm:py-4 bg-surface border border-border focus:outline-none focus:border-accent text-foreground placeholder-muted text-sm sm:text-base font-medium tracking-wide"
           placeholder="SEARCH INSTRUCTIONS, FUNCTIONS..."
           value={localQuery}
           onChange={handleChange}
@@ -73,7 +73,7 @@ export function SearchBar({ onSearch, isSearching }: SearchBarProps) {
           </div>
         )}
       </div>
-      <div className="mt-2 text-xs text-muted tracking-wider uppercase">
+      <div className="mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-muted tracking-wider uppercase">
         Type at least 3 characters to search
       </div>
     </div>

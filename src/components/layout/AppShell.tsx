@@ -18,7 +18,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     }, []);
 
     return (
-        <div className="flex h-screen overflow-hidden bg-background">
+        <div className="flex h-screen overflow-hidden overflow-x-hidden bg-background">
             {/* Mobile sidebar overlay */}
             {isSidebarOpen && (
                 <div
@@ -30,7 +30,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             {/* Sidebar */}
             <aside
                 className={`
-          fixed lg:static inset-y-0 left-0 z-30 w-72 transform bg-surface border-r border-border transition-transform duration-150 ease-out lg:transform-none shrink-0
+          fixed lg:static inset-y-0 left-0 z-30 w-[280px] sm:w-72 transform bg-surface border-r border-border transition-transform duration-150 ease-out lg:transform-none shrink-0
           ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
             >

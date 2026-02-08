@@ -51,17 +51,17 @@ export function SearchResults({ results, query, isSearching }: SearchResultsProp
           className="block group"
         >
           <div
-            className="bg-surface border border-border p-4 hover:border-accent hover:bg-surface-hover transition-colors duration-150 cursor-pointer overflow-hidden animate-result-slide-in"
+            className="bg-surface border border-border p-3 sm:p-4 hover:border-accent hover:bg-surface-hover transition-colors duration-150 cursor-pointer overflow-hidden animate-result-slide-in"
             style={{ animationDelay: `${Math.min(i, 9) * 0.05}s` }}
           >
-            <div className="flex items-start justify-between gap-3 overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3 overflow-hidden">
               <div className="flex items-center gap-2 mb-1 min-w-0">
                 <FileText className="h-4 w-4 text-accent shrink-0" />
-                <h3 className="font-bold text-foreground group-hover:text-accent transition-colors duration-150 truncate">
+                <h3 className="font-bold text-sm sm:text-base text-foreground group-hover:text-accent transition-colors duration-150 truncate">
                   {result.title}
                 </h3>
               </div>
-              <span className="text-[10px] font-bold text-accent uppercase tracking-wider bg-accent/10 px-2 py-1 flex items-center gap-1 shrink-0 whitespace-nowrap max-w-[40%] overflow-hidden">
+              <span className="text-[10px] font-bold text-accent uppercase tracking-wider bg-accent/10 px-2 py-1 flex items-center gap-1 shrink-0 w-fit max-w-full sm:max-w-[40%] overflow-hidden">
                 <Folder className="h-3 w-3 shrink-0" />
                 <span className="truncate">{result.category}</span>
               </span>

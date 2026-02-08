@@ -17,7 +17,7 @@ interface HeaderProps {
 export function Header({ breadcrumbs = [], className }: HeaderProps) {
   return (
     <header className={clsx("h-14 flex items-center border-b border-border bg-surface px-4 lg:px-6", className)}>
-      <nav className="flex items-center text-sm text-muted">
+      <nav className="flex items-center text-sm text-muted overflow-hidden min-w-0">
         <Link
           href="/"
           className="flex items-center gap-1 hover:text-foreground transition-none"
@@ -37,7 +37,7 @@ export function Header({ breadcrumbs = [], className }: HeaderProps) {
                 {crumb.label}
               </Link>
             ) : (
-              <span className="font-bold text-foreground line-clamp-1 max-w-[200px] sm:max-w-md uppercase tracking-wide text-xs">
+              <span className="font-bold text-foreground line-clamp-1 max-w-[120px] sm:max-w-[200px] md:max-w-md uppercase tracking-wide text-xs">
                 {crumb.label}
               </span>
             )}
