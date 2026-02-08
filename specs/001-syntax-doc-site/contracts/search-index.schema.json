@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Search Index Schema",
+  "description": "Schema for the pre-processed search index JSON file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the index item"
+      },
+      "documentId": {
+        "type": "string",
+        "description": "Reference to the parent document"
+      },
+      "title": {
+        "type": "string",
+        "description": "Title of the document"
+      },
+      "category": {
+        "type": "string",
+        "description": "Category or folder name"
+      },
+      "pageNumber": {
+        "type": "integer",
+        "minimum": 1,
+        "description": "Page number where content is found"
+      },
+      "content": {
+        "type": "string",
+        "description": "Extracted text content"
+      },
+      "path": {
+        "type": "string",
+        "description": "Relative path to the PDF file for viewing"
+      }
+    },
+    "required": ["id", "documentId", "title", "content", "path"]
+  }
+}
