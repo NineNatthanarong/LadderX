@@ -3,9 +3,10 @@ import { SearchIndexItem } from './types';
 
 const FUSE_OPTIONS = {
   keys: [
-    { name: 'title', weight: 0.7 },
-    { name: 'content', weight: 0.3 },
-    { name: 'category', weight: 0.2 },
+    { name: 'title', weight: 0.9 },
+    { name: 'headers', weight: 0.8 },
+    { name: 'content', weight: 0.2 },
+    { name: 'category', weight: 0.1 },
   ],
   includeScore: true,
   threshold: 0.3, // Fuzzy matching threshold (0.0 = exact, 1.0 = match anything)

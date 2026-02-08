@@ -14,5 +14,6 @@ export interface SearchIndexItem {
   category: string;
   pageNumber: number;
   content: string;
+  headers: string[];
   path: string;
 }
