@@ -8,7 +8,7 @@ interface DocViewerProps {
 export function DocViewer({ url, title }: DocViewerProps) {
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="flex-1 bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
+      <div className="flex-1 bg-background border border-border overflow-hidden">
         <iframe
           src={url}
           className="w-full h-full"
@@ -16,14 +16,14 @@ export function DocViewer({ url, title }: DocViewerProps) {
           allowFullScreen
         />
       </div>
-      <div className="mt-2 text-center">
+      <div className="mt-3 text-right">
         <a
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-blue-600 hover:underline"
+          className="text-xs font-bold uppercase tracking-wider text-accent hover:text-accent-hover transition-none"
         >
-          Open in new tab
+          Open in new tab →
         </a>
       </div>
     </div>

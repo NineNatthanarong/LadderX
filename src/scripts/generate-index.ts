@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { parsePdf } from './pdf-parser';
-import { Document, SearchIndexItem } from '../lib/types';
+import { SearchIndexItem } from '../lib/types';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const OUTPUT_FILE = path.join(process.cwd(), 'public', 'search-index.json');
@@ -59,30 +59,24 @@ async function generateIndex() {
       const category = pathParts.length > 0 ? pathParts.join('/') : 'Uncategorized';
 
       const docId = generateId(relativePath);
-      const doc: Document = {
-        id: docId,
-        filename,
-        path: relativePath,
-        category,
-        pageCount: parsed.numpages,
-        lastModified: new Date().toISOString(), // In a real app, use fs.stat mtime
-      };
 
-      // Note: pdf-parse returns all text merged.
-      // For this implementation, we'll create one index item per document since we can't reliably split pages yet.
-      // In a more advanced version, we would parse per-page.
+      // Create one index item per page for accurate page-level search
+      for (let pageIdx = 0; pageIdx < parsed.pages.length; pageIdx++) {
+        const pageText = parsed.pages[pageIdx].replace(/\s+/g, ' ').trim();
+        if (!pageText) continue; // skip blank pages
 
-      const item: SearchIndexItem = {
-        id: generateId(`${docId}_full`),
-        documentId: docId,
-        title: filename.replace('.pdf', ''),
-        category,
-        pageNumber: 1, // Defaulting to 1 as we have bulk text
-        content: parsed.text.replace(/\s+/g, ' ').trim(), // Normalize whitespace
-        path: relativePath,
-      };
+        const item: SearchIndexItem = {
+          id: generateId(`${docId}_page_${pageIdx + 1}`),
+          documentId: docId,
+          title: filename.replace('.pdf', ''),
+          category,
+          pageNumber: pageIdx + 1,
+          content: pageText,
+          path: relativePath,
+        };
 
-      indexItems.push(item);
+        indexItems.push(item);
+      }
 
     } catch (error) {
       console.error(`Failed to process ${filePath}`, error);

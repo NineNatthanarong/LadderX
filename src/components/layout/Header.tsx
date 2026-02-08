@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ChevronLeft, Home, ChevronRight } from 'lucide-react';
+import { Home, ChevronRight } from 'lucide-react';
 import { clsx } from 'clsx';
 
 interface Breadcrumb {
@@ -16,11 +16,11 @@ interface HeaderProps {
 
 export function Header({ breadcrumbs = [], className }: HeaderProps) {
   return (
-    <header className={clsx("h-16 flex items-center border-b border-gray-200 bg-white px-4 lg:px-6", className)}>
-      <nav className="flex items-center text-sm text-gray-500">
+    <header className={clsx("h-14 flex items-center border-b border-border bg-surface px-4 lg:px-6", className)}>
+      <nav className="flex items-center text-sm text-muted">
         <Link
           href="/"
-          className="flex items-center gap-1 hover:text-gray-900 transition-colors"
+          className="flex items-center gap-1 hover:text-foreground transition-none"
           aria-label="Home"
         >
           <Home className="h-4 w-4" />
@@ -28,16 +28,16 @@ export function Header({ breadcrumbs = [], className }: HeaderProps) {
 
         {breadcrumbs.map((crumb, i) => (
           <div key={i} className="flex items-center">
-            <ChevronRight className="h-4 w-4 mx-2 text-gray-300" />
+            <ChevronRight className="h-4 w-4 mx-2 text-accent/50" />
             {crumb.href ? (
               <Link
                 href={crumb.href}
-                className="hover:text-gray-900 transition-colors font-medium"
+                className="hover:text-foreground transition-none font-medium"
               >
                 {crumb.label}
               </Link>
             ) : (
-              <span className="font-semibold text-gray-900 line-clamp-1 max-w-[200px] sm:max-w-md">
+              <span className="font-bold text-foreground line-clamp-1 max-w-[200px] sm:max-w-md uppercase tracking-wide text-xs">
                 {crumb.label}
               </span>
             )}

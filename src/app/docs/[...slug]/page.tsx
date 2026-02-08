@@ -10,7 +10,6 @@ import { use } from 'react';
 import { Header } from '@/components/layout/Header';
 
 export default function DocPage({ params }: { params: Promise<{ slug: string[] }> }) {
-  // Unwrap params using React.use()
   const { slug } = use(params);
   const docId = slug[0];
 
@@ -35,7 +34,7 @@ function ClientDocPage({ docId }: { docId: string }) {
     return (
       <div className="flex flex-col h-full">
         <Header breadcrumbs={[{ label: 'Loading...' }]} />
-        <div className="p-8 text-center text-gray-500">Loading document...</div>
+        <div className="p-8 text-center text-muted uppercase tracking-wider text-sm">Loading document...</div>
       </div>
     );
   }
@@ -45,10 +44,10 @@ function ClientDocPage({ docId }: { docId: string }) {
       <div className="flex flex-col h-full">
         <Header breadcrumbs={[{ label: 'Not Found' }]} />
         <div className="p-8 text-center">
-          <h1 className="text-xl font-bold text-gray-900 mb-2">Document Not Found</h1>
-          <p className="text-gray-600 mb-4">The document you requested could not be found.</p>
-          <Link href="/" className="text-blue-600 hover:underline">
-            Return to Home
+          <h1 className="text-xl font-black text-foreground mb-2 uppercase tracking-wide">Document Not Found</h1>
+          <p className="text-muted mb-4">The document you requested could not be found.</p>
+          <Link href="/" className="text-accent hover:text-accent-hover font-bold uppercase tracking-wider text-sm transition-none">
+            ← Return to Home
           </Link>
         </div>
       </div>
@@ -59,12 +58,12 @@ function ClientDocPage({ docId }: { docId: string }) {
     <div className="flex flex-col h-full">
       <Header
         breadcrumbs={[
-          { label: doc.category }, // We could make this clickable if we had category pages
+          { label: doc.category },
           { label: doc.title }
         ]}
       />
-      <div className="flex-1 p-6 overflow-hidden flex flex-col">
-        <div className="flex-1 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="flex-1 p-4 lg:p-6 overflow-hidden flex flex-col">
+        <div className="flex-1 bg-surface border border-border overflow-hidden">
           <DocViewer url={`/api/pdf/${doc.path}`} title={doc.title} />
         </div>
       </div>

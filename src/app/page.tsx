@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { SearchBar } from '@/components/features/SearchBar';
 import { SearchResults } from '@/components/features/SearchResults';
 import { loadSearchIndex } from '@/lib/data-loader';
 import { search } from '@/lib/search';
 import { SearchIndexItem } from '@/lib/types';
+import { Database, Layers, FileText } from 'lucide-react';
 
 export default function Home() {
   const [index, setIndex] = useState<SearchIndexItem[]>([]);
@@ -28,57 +29,112 @@ export default function Home() {
 
     if (newQuery.length < 3) {
       setResults([]);
+      setIsSearching(false);
       return;
     }
 
     setIsSearching(true);
-    // Debounce search slightly to avoid UI flicker on fast typing
-    const timeoutId = setTimeout(() => {
-      const hits = search(newQuery, index);
-      setResults(hits);
-      setIsSearching(false);
-    }, 150);
-
-    return () => clearTimeout(timeoutId);
+    const hits = search(newQuery, index);
+    setResults(hits);
+    setIsSearching(false);
   };
 
+  // Compute live stats from the search index
+  const stats = useMemo(() => {
+    if (index.length === 0) return null;
+    const uniqueDocs = new Set(index.map((item) => item.documentId));
+    const uniqueCategories = new Set(index.map((item) => item.category));
+    return {
+      documents: uniqueDocs.size,
+      categories: uniqueCategories.size,
+      pages: index.length,
+    };
+  }, [index]);
+
   return (
-    <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-background py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl mb-4">
-            Syntax Documentation
+        {/* Hero */}
+        <div className="text-center mb-14">
+          <div className="inline-block mb-6 animate-fade-in-up">
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-accent border border-accent px-3 py-1">
+              MELSEC REFERENCE
+            </span>
+          </div>
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-foreground tracking-tight uppercase leading-none mb-6 animate-fade-in-up delay-100">
+            Syntax<br />
+            <span className="text-accent">Documentation</span>
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Instantly search across {loading ? '...' : index.length} documentation pages.
+          <p className="text-base text-muted max-w-xl mx-auto tracking-wide animate-fade-in-up delay-200">
+            {loading ? (
+              <span className="inline-block w-48 h-5 rounded animate-shimmer" />
+            ) : (
+              <>
+                <span className="text-accent font-bold">{index.length}</span> documentation pages indexed and searchable.
+              </>
+            )}
           </p>
         </div>
 
-        <SearchBar onSearch={handleSearch} isSearching={isSearching || loading} />
+        {/* Search */}
+        <div className="animate-slide-up delay-300">
+          <SearchBar onSearch={handleSearch} isSearching={isSearching || loading} />
+        </div>
 
+        {/* Results */}
         <SearchResults
           results={results}
           query={query}
           isSearching={isSearching}
         />
 
-        {!query && !loading && (
-          <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-             {/* Categories Placeholder - to be implemented in Phase 4 */}
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h3 className="font-semibold text-gray-900 mb-2">Overview</h3>
-              <p className="text-sm text-gray-500">General information and system configuration.</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h3 className="font-semibold text-gray-900 mb-2">CPU Instructions</h3>
-              <p className="text-sm text-gray-500">Standard and dedicated CPU module instructions.</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h3 className="font-semibold text-gray-900 mb-2">Standard Functions</h3>
-              <p className="text-sm text-gray-500">Built-in functions for data processing.</p>
-            </div>
+        {/* Live Stats — replaces the old category cards */}
+        {!query && !loading && stats && (
+          <div className="mt-16 grid grid-cols-3 gap-px bg-border border border-border">
+            {[
+              { icon: FileText, label: 'Documents', value: stats.documents },
+              { icon: Layers, label: 'Categories', value: stats.categories },
+              { icon: Database, label: 'Pages Indexed', value: stats.pages },
+            ].map((stat, i) => {
+              const Icon = stat.icon;
+              return (
+                <div
+                  key={stat.label}
+                  className={`bg-surface flex flex-col items-center justify-center py-8 px-4 group hover:bg-surface-hover transition-colors duration-200 animate-fade-in delay-${(i + 5) * 100}`}
+                >
+                  <Icon className="h-5 w-5 text-accent mb-3 group-hover:scale-110 transition-transform duration-200" />
+                  <span className={`text-3xl sm:text-4xl font-black text-foreground tabular-nums animate-count-up delay-${(i + 6) * 100}`}>
+                    {stat.value}
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted mt-2">
+                    {stat.label}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         )}
+
+        {/* Disclaimer */}
+        <div className="mt-16 text-center animate-fade-in delay-700">
+          <div className="border border-border bg-surface rounded px-6 py-5 inline-block max-w-xl">
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent mb-2">
+              PLC Competition 2026
+            </p>
+            <p className="text-xs text-muted leading-relaxed">
+              This website is made for <span className="text-foreground font-semibold">PLC Competition 2026</span> purpose only.
+              Built by <span className="text-foreground font-semibold">BananaCat Team</span>.
+              All information is sourced from official documentation by <span className="text-foreground font-semibold">Mitsubishi Electric</span>.
+            </p>
+          </div>
+        </div>
+
+        {/* Footer accent line */}
+        <div className="mt-10 flex items-center gap-4 animate-fade-in delay-800">
+          <div className="flex-1 h-px bg-border"></div>
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted">LadderX</span>
+          <div className="flex-1 h-px bg-border"></div>
+        </div>
       </div>
     </main>
   );
