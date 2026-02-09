@@ -62,7 +62,8 @@ async function generateIndex() {
 
       // Create one index item per page for accurate page-level search
       for (let pageIdx = 0; pageIdx < parsed.pages.length; pageIdx++) {
-        const pageText = parsed.pages[pageIdx].replace(/\s+/g, ' ').trim();
+        const pageData = parsed.pages[pageIdx];
+        const pageText = pageData.text.replace(/\s+/g, ' ').trim();
         if (!pageText) continue; // skip blank pages
 
         const item: SearchIndexItem = {
@@ -72,6 +73,7 @@ async function generateIndex() {
           category,
           pageNumber: pageIdx + 1,
           content: pageText,
+          headers: pageData.headers || [],
           path: relativePath,
         };
 

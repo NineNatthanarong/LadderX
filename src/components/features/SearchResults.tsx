@@ -67,6 +67,20 @@ export function SearchResults({ results, query, isSearching }: SearchResultsProp
               </span>
             </div>
 
+            {/* Display Headers if available */}
+            {result.headers && result.headers.length > 0 && (
+              <div className="flex flex-wrap gap-1 mt-1 mb-2">
+                {result.headers.slice(0, 3).map((header, idx) => (
+                  <span key={idx} className="text-[10px] bg-border/50 text-muted-foreground px-1.5 py-0.5 rounded border border-border">
+                    {header}
+                  </span>
+                ))}
+                {result.headers.length > 3 && (
+                   <span className="text-[10px] text-muted-foreground px-1.5 py-0.5">+{result.headers.length - 3}</span>
+                )}
+              </div>
+            )}
+
             <p className="text-sm text-muted mt-2 line-clamp-2 break-words">
               {result.content.substring(0, 200)}...
             </p>
