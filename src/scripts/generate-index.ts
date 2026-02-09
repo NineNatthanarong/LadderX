@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import { parsePdf } from './pdf-parser';
 import { SearchIndexItem } from '../lib/types';
 
-const DATA_DIR = path.join(process.cwd(), 'data');
+const DATA_DIR = path.join(process.cwd(), 'public', 'data');
 const OUTPUT_FILE = path.join(process.cwd(), 'public', 'search-index.json');
 
 // Ensure public directory exists

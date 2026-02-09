@@ -64,7 +64,7 @@ function ClientDocPage({ docId }: { docId: string }) {
       />
       <div className="flex-1 p-4 lg:p-6 overflow-hidden flex flex-col">
         <div className="flex-1 bg-surface border border-border overflow-hidden">
-          <DocViewer url={`/api/pdf/${doc.path}`} title={doc.title} />
+          <DocViewer url={`/data/${doc.path}`} title={doc.title} />
         </div>
       </div>
     </div>
