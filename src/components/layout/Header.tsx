@@ -49,7 +49,7 @@ export function Header({ breadcrumbs = [], className }: HeaderProps) {
                 {crumb.label}
               </Link>
             ) : (
-              <span className="font-bold text-foreground line-clamp-1 max-w-[120px] sm:max-w-[200px] md:max-w-md uppercase tracking-wide text-xs">
+              <span className="font-bold text-foreground line-clamp-1 max-w-[100px] sm:max-w-[160px] md:max-w-xs lg:max-w-md uppercase tracking-wide text-xs">
                 {crumb.label}
               </span>
             )}

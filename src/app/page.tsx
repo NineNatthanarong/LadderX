@@ -135,16 +135,16 @@ export default function Home() {
   }, [index]);
 
   return (
-    <main className="min-h-screen bg-background py-10 sm:py-16 px-4 sm:px-6 lg:px-8 relative">
+    <main className="min-h-screen bg-background py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8 relative">
       <ParticleBackground />
 
       <div className="max-w-4xl mx-auto relative">
         {/* Hero */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-8 sm:mb-10 md:mb-14">
           {/* Badge */}
-          <div className="inline-block mb-6 animate-fade-in-up">
+          <div className="inline-block mb-4 sm:mb-6 animate-fade-in-up">
             <span
-              className="text-xs font-bold uppercase tracking-[0.3em] px-4 py-1.5 text-foreground"
+              className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.15em] sm:tracking-[0.3em] px-3 sm:px-4 py-1 sm:py-1.5 text-foreground"
               style={{
                 background: 'linear-gradient(135deg, rgba(107, 5, 4, 0.3), rgba(154, 3, 30, 0.2))',
                 border: '1px solid rgba(227, 100, 20, 0.3)',
@@ -156,16 +156,16 @@ export default function Home() {
           </div>
 
           {/* Title with gradient */}
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight uppercase leading-none mb-4 sm:mb-6 animate-fade-in-up delay-100">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-black tracking-tight uppercase leading-none mb-3 sm:mb-4 md:mb-6 animate-fade-in-up delay-100">
             <span className="text-foreground">Syntax</span>
             <br />
             <span className="text-gradient">Documentation</span>
           </h1>
 
           {/* Decorative accent line */}
-          <div className="flex justify-center mb-6 animate-fade-in-up delay-200">
+          <div className="flex justify-center mb-4 sm:mb-6 animate-fade-in-up delay-200">
             <div
-              className="h-[2px] w-24"
+              className="h-[2px] w-16 sm:w-24"
               style={{ background: 'var(--gradient-brand-h)' }}
             />
           </div>
@@ -196,7 +196,7 @@ export default function Home() {
 
         {/* Live Stats */}
         {!query && !loading && stats && (
-          <div className="mt-10 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+          <div className="mt-8 sm:mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
             {[
               { icon: FileText, label: 'Documents', value: stats.documents, color: '#6b0504' },
               { icon: Layers, label: 'Categories', value: stats.categories, color: '#9a031e' },
@@ -206,7 +206,7 @@ export default function Home() {
               return (
                 <div
                   key={stat.label}
-                  className={`glass group relative overflow-hidden py-6 sm:py-8 px-5 text-center hover:scale-[1.02] transition-all duration-300 animate-scale-in delay-${(i + 5) * 100}`}
+                  className={`glass group relative overflow-hidden py-5 sm:py-6 md:py-8 px-4 sm:px-5 text-center hover:scale-[1.02] transition-all duration-300 animate-scale-in delay-${(i + 5) * 100}`}
                 >
                   {/* Hover glow */}
                   <div
@@ -227,7 +227,7 @@ export default function Home() {
                       className="h-5 w-5 text-accent mx-auto mb-3 group-hover:scale-110 transition-transform duration-300"
                       style={{ filter: `drop-shadow(0 0 6px ${stat.color}60)` }}
                     />
-                    <span className={`text-2xl sm:text-3xl lg:text-4xl font-black text-foreground tabular-nums animate-count-up delay-${(i + 6) * 100}`}>
+                    <span className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-foreground tabular-nums animate-count-up delay-${(i + 6) * 100}`}>
                       {stat.value}
                     </span>
                     <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-muted mt-2">
@@ -241,9 +241,9 @@ export default function Home() {
         )}
 
         {/* Disclaimer */}
-        <div className="mt-10 sm:mt-16 text-center animate-fade-in delay-700">
+        <div className="mt-8 sm:mt-12 md:mt-16 text-center animate-fade-in delay-700">
           <div
-            className="glass rounded px-4 sm:px-6 py-4 sm:py-5 w-full sm:max-w-xl sm:inline-block relative overflow-hidden"
+            className="glass rounded px-3 sm:px-5 md:px-6 py-3 sm:py-4 md:py-5 w-full sm:max-w-xl sm:inline-block relative overflow-hidden"
           >
             {/* Top gradient border */}
             <div
@@ -262,7 +262,7 @@ export default function Home() {
         </div>
 
         {/* Footer accent line */}
-        <div className="mt-10 flex items-center gap-4 animate-fade-in delay-800">
+        <div className="mt-8 sm:mt-10 flex items-center gap-3 sm:gap-4 animate-fade-in delay-800">
           <div className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, transparent, #9a031e, #e36414)' }} />
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gradient">LadderX</span>
           <div className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, #e36414, #9a031e, transparent)' }} />

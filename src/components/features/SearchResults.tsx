@@ -82,7 +82,7 @@ export function SearchResults({ results, query, isSearching }: SearchResultsProp
                 </h3>
               </div>
               <span
-                className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 flex items-center gap-1 shrink-0 w-fit max-w-full sm:max-w-[40%] overflow-hidden"
+                className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 flex items-center gap-1 shrink-0 w-fit max-w-[60%] sm:max-w-[40%] overflow-hidden"
                 style={{
                   color: '#e36414',
                   background: 'rgba(227, 100, 20, 0.08)',

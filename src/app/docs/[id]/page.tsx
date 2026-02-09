@@ -81,7 +81,7 @@ export default function DocPage() {
 
             {/* Document toolbar — back to search + document title */}
             <div
-                className="flex items-center gap-3 px-4 lg:px-6 py-3 relative"
+                className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 lg:px-6 py-2 sm:py-3 relative"
                 style={{
                     background: 'rgba(17, 17, 17, 0.8)',
                     borderBottom: '1px solid var(--border)',
@@ -89,7 +89,7 @@ export default function DocPage() {
             >
                 <Link
                     href="/"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-muted hover:text-foreground transition-all duration-200 shrink-0 group"
+                    className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-muted hover:text-foreground transition-all duration-200 shrink-0 group"
                     style={{
                         background: 'rgba(227, 100, 20, 0.08)',
                         border: '1px solid rgba(227, 100, 20, 0.15)',
@@ -110,14 +110,14 @@ export default function DocPage() {
                 <div className="h-4 w-px bg-border shrink-0" />
 
                 <div className="min-w-0 flex-1">
-                    <h1 className="text-sm font-black text-foreground uppercase tracking-wide truncate">
+                    <h1 className="text-xs sm:text-sm font-black text-foreground uppercase tracking-wide truncate">
                         {doc.title}
                     </h1>
                 </div>
             </div>
 
             {/* PDF viewer */}
-            <div className="flex-1 min-h-0 p-4">
+            <div className="flex-1 min-h-0 p-2 sm:p-4">
                 <DocViewer url={pdfUrl} title={doc.title} />
             </div>
         </div>
