@@ -3,12 +3,19 @@
 :root {
   --background: #0a0a0a;
   --foreground: #fafafa;
-  --surface: #141414;
-  --surface-hover: #1f1f1f;
-  --border: #262626;
-  --accent: #f59e0b;
-  --accent-hover: #d97706;
+  --surface: #111111;
+  --surface-hover: #1a1a1a;
+  --border: #1e1e1e;
+  --accent: #e36414;
+  --accent-hover: #fb8b24;
+  --accent-deep: #9a031e;
+  --accent-darkest: #6b0504;
   --muted: #737373;
+  --gradient-brand: linear-gradient(135deg, #6b0504 0%, #9a031e 30%, #e36414 65%, #fb8b24 100%);
+  --gradient-brand-h: linear-gradient(90deg, #6b0504 0%, #9a031e 30%, #e36414 65%, #fb8b24 100%);
+  --gradient-glow: radial-gradient(circle, rgba(227, 100, 20, 0.15) 0%, transparent 70%);
+  --glass-bg: rgba(17, 17, 17, 0.6);
+  --glass-border: rgba(227, 100, 20, 0.12);
 }
 
 @theme inline {
@@ -19,7 +26,11 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-darkest: var(--accent-darkest);
   --color-muted: var(--muted);
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -39,12 +50,12 @@
   }
 
   ::selection {
-    background-color: #f59e0b;
+    background-color: #e36414;
     color: #0a0a0a;
   }
 }
 
-/* Scrollbar — dark, sharp */
+/* ── Scrollbar ── */
 aside ::-webkit-scrollbar {
   width: 4px;
 }
@@ -54,15 +65,14 @@ aside ::-webkit-scrollbar-track {
 }
 
 aside ::-webkit-scrollbar-thumb {
-  background-color: #262626;
+  background-color: #9a031e;
   border-radius: 0;
 }
 
 aside ::-webkit-scrollbar-thumb:hover {
-  background-color: #404040;
+  background-color: #e36414;
 }
 
-/* Global scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -73,12 +83,12 @@ aside ::-webkit-scrollbar-thumb:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #262626;
+  background-color: #1e1e1e;
   border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #404040;
+  background-color: #9a031e;
 }
 
 /* ── Keyframe Animations ── */
@@ -121,11 +131,11 @@ aside ::-webkit-scrollbar-thumb:hover {
 
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+    box-shadow: 0 0 0 0 rgba(227, 100, 20, 0);
   }
 
   50% {
-    box-shadow: 0 0 20px 2px rgba(245, 158, 11, 0.15);
+    box-shadow: 0 0 30px 4px rgba(227, 100, 20, 0.15);
   }
 }
 
@@ -163,6 +173,108 @@ aside ::-webkit-scrollbar-thumb:hover {
   }
 }
 
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+
+  50% {
+    transform: translateY(-4px) rotate(0deg);
+  }
+
+  75% {
+    transform: translateY(-12px) rotate(-1deg);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes borderGlow {
+
+  0%,
+  100% {
+    border-color: rgba(227, 100, 20, 0.1);
+  }
+
+  50% {
+    border-color: rgba(227, 100, 20, 0.4);
+  }
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-10vh) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes rotateGradient {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* ── Animation Utilities ── */
 
 .animate-fade-in-up {
@@ -186,13 +298,103 @@ aside ::-webkit-scrollbar-thumb:hover {
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, transparent 25%, rgba(245, 158, 11, 0.08) 50%, transparent 75%);
+  background: linear-gradient(90deg, transparent 25%, rgba(227, 100, 20, 0.08) 50%, transparent 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
 }
 
 .animate-count-up {
   animation: countUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite;
+}
+
+.animate-border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Gradient Text ── */
+.text-gradient {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glassmorphism ── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-strong {
+  background: rgba(17, 17, 17, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(227, 100, 20, 0.15);
+}
+
+/* ── Gradient Borders ── */
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: var(--gradient-brand);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ── Custom cursor ── */
+.cursor-custom {
+  cursor: none;
+}
+
+.cursor-custom a,
+.cursor-custom button,
+.cursor-custom [role="button"],
+.cursor-custom input,
+.cursor-custom label {
+  cursor: none;
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .cursor-custom {
+    cursor: auto;
+  }
+
+  .cursor-custom a,
+  .cursor-custom button,
+  .cursor-custom [role="button"],
+  .cursor-custom input,
+  .cursor-custom label {
+    cursor: auto;
+  }
 }
 
 /* Stagger delays */

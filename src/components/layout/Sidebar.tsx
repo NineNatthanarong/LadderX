@@ -30,20 +30,34 @@ function SidebarItem({ node, level }: { node: TreeNode; level: number }) {
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
           className={clsx(
-            "flex items-center w-full px-3 py-2 text-xs font-bold uppercase tracking-wider text-muted hover:text-foreground hover:bg-surface-hover transition-none",
+            "flex items-center w-full px-3 py-2 text-xs font-bold uppercase tracking-wider transition-colors duration-200",
             level > 0 && "ml-3"
           )}
+          style={{
+            color: isOpen ? '#e36414' : '#737373',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = '#fafafa';
+            e.currentTarget.style.background = 'rgba(227, 100, 20, 0.05)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = isOpen ? '#e36414' : '#737373';
+            e.currentTarget.style.background = 'transparent';
+          }}
         >
           {isOpen ? (
-            <ChevronDown className="h-3.5 w-3.5 mr-1.5 text-accent" />
+            <ChevronDown className="h-3.5 w-3.5 mr-1.5" style={{ color: '#e36414' }} />
           ) : (
-            <ChevronRight className="h-3.5 w-3.5 mr-1.5 text-muted" />
+            <ChevronRight className="h-3.5 w-3.5 mr-1.5" style={{ color: '#737373' }} />
           )}
-          <Folder className="h-3.5 w-3.5 mr-2 text-accent/60" />
+          <Folder className="h-3.5 w-3.5 mr-2" style={{ color: isOpen ? '#e36414' : 'rgba(227, 100, 20, 0.4)' }} />
           <span className="truncate">{node.name}</span>
         </button>
         {isOpen && (
-          <div className="ml-4 border-l border-border">
+          <div
+            className="ml-4"
+            style={{ borderLeft: '1px solid rgba(227, 100, 20, 0.15)' }}
+          >
             {node.children.map((child, i) => (
               <SidebarItem key={`${child.name}-${i}`} node={child} level={level + 1} />
             ))}
@@ -57,14 +71,39 @@ function SidebarItem({ node, level }: { node: TreeNode; level: number }) {
     <Link
       href={`/docs/${node.path}`}
       className={clsx(
-        "flex items-center px-3 py-1.5 text-sm transition-none",
-        isActive
-          ? "bg-accent/10 text-accent font-bold border-l-2 border-accent -ml-px"
-          : "text-muted hover:text-foreground hover:bg-surface-hover",
+        "flex items-center px-3 py-1.5 text-sm transition-colors duration-200",
         level > 0 && "ml-5"
       )}
+      style={
+        isActive
+          ? {
+            background: 'rgba(227, 100, 20, 0.08)',
+            color: '#e36414',
+            fontWeight: 700,
+            borderLeft: '2px solid #e36414',
+            marginLeft: level > 0 ? '1.25rem' : '-1px',
+          }
+          : {
+            color: '#737373',
+          }
+      }
+      onMouseEnter={(e) => {
+        if (!isActive) {
+          e.currentTarget.style.color = '#fafafa';
+          e.currentTarget.style.background = 'rgba(227, 100, 20, 0.04)';
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!isActive) {
+          e.currentTarget.style.color = '#737373';
+          e.currentTarget.style.background = 'transparent';
+        }
+      }}
     >
-      <FileText className={clsx("h-3.5 w-3.5 mr-2 shrink-0", isActive ? "text-accent" : "text-muted/50")} />
+      <FileText
+        className="h-3.5 w-3.5 mr-2 shrink-0"
+        style={{ color: isActive ? '#e36414' : 'rgba(115, 115, 115, 0.5)' }}
+      />
       <span className="truncate">{node.name}</span>
     </Link>
   );
