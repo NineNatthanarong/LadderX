@@ -9,7 +9,7 @@ export function CustomCursor() {
     const [isVisible, setIsVisible] = useState(false);
     const mousePos = useRef({ x: -100, y: -100 });
     const ringPos = useRef({ x: -100, y: -100 });
-    const animFrameRef = useRef<number>();
+    const animFrameRef = useRef<number | undefined>(undefined);
 
     const updateCursor = useCallback(() => {
         if (dotRef.current) {
